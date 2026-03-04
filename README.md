@@ -25,9 +25,15 @@ ssh -i ~/.ssh/your_key -p 2222 openclaw@localhost
 |------|------|-----------|
 | `SSH_PORT` | ホストに公開するSSHポート | `2222` |
 | `SSH_AUTHORIZED_KEYS` | SSH公開鍵 | - |
-| `RW_OPENCLAW_CONFIG` | OpenClaw設定ディレクトリ（読み書き可） | `./data/openclaw-config` |
-| `RO_VOLUME_1` | ホスト共有ディレクトリ（読み取り専用、コンテナ内 `/mnt/shared`） | `./data/readonly` |
-| `RW_SSH_HOST_KEYS` | SSHホスト鍵の永続化 | `./data/ssh-host-keys` |
+
+## ボリューム
+
+`docker-compose.yml` で直接設定:
+
+| パス | 説明 |
+|------|------|
+| `./data/openclaw-config:/home/openclaw/.openclaw` | OpenClaw設定（読み書き） |
+| `./data/ssh-host-keys:/etc/ssh/host_keys` | SSHホスト鍵の永続化 |
 
 ## コンテナ内
 
@@ -45,9 +51,11 @@ openclaw doctor
 
 ## ボリューム追加
 
-`docker-compose.yml` に追加のボリュームを記載:
+`docker-compose.yml` の volumes セクションに追記:
 ```yaml
 volumes:
-  - /host/path:/mnt/custom-name:ro   # 読み取り専用
-  - /host/path:/mnt/custom-name      # 読み書き可
+  # 読み取り専用
+  - /host/path:/mnt/data:ro
+  # 読み書き可
+  - /host/path:/mnt/shared
 ```

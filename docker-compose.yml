@@ -8,9 +8,15 @@ services:
     environment:
       - SSH_AUTHORIZED_KEYS=${SSH_AUTHORIZED_KEYS:-}
     volumes:
-      # Read-write: OpenClaw config and workspace
-      - ${RW_OPENCLAW_CONFIG:-./data/openclaw-config}:/home/openclaw/.openclaw
-      # Read-only: host directories (comma-separated paths not supported, add more below as needed)
-      - ${RO_VOLUME_1:-./data/readonly}:/mnt/shared:ro
+      # Read-write: OpenClaw config and workspace (persisted on host)
+      - ./data/openclaw-config:/home/openclaw/.openclaw
+
       # SSH host keys (persist across rebuilds)
-      - ${RW_SSH_HOST_KEYS:-./data/ssh-host-keys}:/etc/ssh/host_keys
+      - ./data/ssh-host-keys:/etc/ssh/host_keys
+
+      # === Add your volumes below ===
+      # Read-only example:
+      # - /host/path/to/data:/mnt/data:ro
+      #
+      # Read-write example:
+      # - /host/path/to/shared:/mnt/shared

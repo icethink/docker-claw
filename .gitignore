@@ -1,5 +1,5 @@
-.env
 data/openclaw-config/*
 data/ssh-host-keys/*
+data/authorized_keys
 !data/openclaw-config/.gitkeep
 !data/ssh-host-keys/.gitkeep

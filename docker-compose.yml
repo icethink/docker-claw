@@ -4,15 +4,14 @@ services:
     container_name: docker-claw
     restart: unless-stopped
     ports:
-      - "${SSH_PORT:-2222}:22"
-    environment:
-      - SSH_AUTHORIZED_KEYS=${SSH_AUTHORIZED_KEYS:-}
+      - "2222:22"
     volumes:
-      # Read-write: OpenClaw config and workspace (persisted on host)
+      # Read-write: OpenClaw config and workspace
       - ./data/openclaw-config:/home/openclaw/.openclaw
 
-      # SSH host keys (persist across rebuilds)
+      # SSH keys
       - ./data/ssh-host-keys:/etc/ssh/host_keys
+      - ./data/authorized_keys:/home/openclaw/.ssh/authorized_keys:ro
 
       # === Add your volumes below ===
       # Read-only example:

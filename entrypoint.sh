@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-# Fix SSH authorized_keys permissions
-if [ -f /home/openclaw/.ssh/authorized_keys ]; then
+# Copy authorized_keys from read-only mount and fix permissions
+if [ -f /tmp/authorized_keys_mount ]; then
+    cp /tmp/authorized_keys_mount /home/openclaw/.ssh/authorized_keys
     chmod 600 /home/openclaw/.ssh/authorized_keys
     chown openclaw:openclaw /home/openclaw/.ssh/authorized_keys
 fi

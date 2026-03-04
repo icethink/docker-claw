@@ -11,7 +11,7 @@ services:
 
       # SSH keys
       - ./data/ssh-host-keys:/etc/ssh/host_keys
-      - ./data/authorized_keys:/home/openclaw/.ssh/authorized_keys:ro
+      - ./data/authorized_keys:/tmp/authorized_keys_mount:ro
 
       # === Add your volumes below ===
       # Read-only example:
